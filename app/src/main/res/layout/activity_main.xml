@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/headerTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/system_interaction_n"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/taskButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headerTextView"
+        android:layout_centerHorizontal="true"
+        android:text="@string/task_info" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="launchCamera"
+            android:text="@string/launch_camera_n" />
+
+        <Button
+            android:id="@+id/button_pick_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:onClick="pickContact"
+            android:text="@string/pick_contact_n" />
+
+        <Button
+            android:id="@+id/button_open_webview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:onClick="openWebView"
+            android:text="@string/open_web_view_n" />
+
+        <Button
+            android:id="@+id/button_open_browser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:onClick="launchBrowser"
+            android:text="@string/launch_browser_n" />
+
+    </LinearLayout>
+
+</RelativeLayout>

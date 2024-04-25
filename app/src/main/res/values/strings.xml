@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">SystemInteraction</string>
+    <string name="url">https://www.google.com</string>
+    <string name="system_interaction_n">System Interaction\nРазработал Рубашевский</string>
+    <string name="launch_camera_n">Launch Camera\nНажимает Рубашевский</string>
+    <string name="pick_contact_n">Pick Contact\nНажимает Рубашевский</string>
+    <string name="open_web_view_n">Open WebView\nНажимает Рубашевский</string>
+    <string name="launch_browser_n">Launch Browser\nНажимает Рубашевский</string>
+    <string name="task_info">Task_info</string>
+    <string name="task_info_text">Создать приложение для организации взаимодействия со стандартными приложениями Android, обладающее перечисленными ниже характеристиками. Приложение должно состоять из следующих активностей:\n- активность для взаимодействия с приложением Камера, с возможностью возврата сделанного снимка с помощью элемента ImageView\n- активность для взаимодействия с приложением Контакты с возможностью выбора контакта для отправки ему сообщения или осуществления телефонного вызова\n- активность для отображения страницы Internet с использованием элемента WebView\n- запуск браузера мобильного устройства\n</string>
+    <string name="author">Рубашевский Владислав</string>
+    <string name="made_photo">Maked Photo</string>
+    <string name="call">Call</string>
+    <string name="send_sms">Send SMS</string>
+    <string name="enter_your_message">Enter your message</string>
+    <string name="name">Name:</string>
+    <string name="phone">Phone:</string>
+</resources>
