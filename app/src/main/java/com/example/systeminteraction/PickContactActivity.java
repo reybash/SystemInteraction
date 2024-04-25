@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.telephony.SmsManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,6 +26,9 @@ public class PickContactActivity extends AppCompatActivity {
     private String phoneNumber;
     EditText editTextMessage;
     private ActivityResultLauncher<Intent> pickContactLauncher;
+
+    private static final int REQUEST_CALL_PHONE_PERMISSION = 1;
+    private static final int SEND_SMS_PERMISSION_REQUEST_CODE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,22 @@ public class PickContactActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
+        } else if (requestCode == REQUEST_CALL_PHONE_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Разрешение предоставлено, совершаем звонок
+                makePhoneCall();
+            } else {
+                // Разрешение не предоставлено, выводим сообщение об ошибке
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+            }
+        } else if (requestCode == SEND_SMS_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Разрешение предоставлено, совершаем звонок
+                sendSMS();
+            } else {
+                // Разрешение не предоставлено, выводим сообщение об ошибке
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -94,12 +114,15 @@ public class PickContactActivity extends AppCompatActivity {
     }
 
     public void makePhoneCall() {
-        Intent dialIntent = new Intent(Intent.ACTION_DIAL);
-        dialIntent.setData(Uri.parse("tel:" + phoneNumber));
-        if (dialIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(dialIntent);
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:" + phoneNumber));
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            // Запрашиваем разрешение на совершение звонка, если оно не предоставлено
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PHONE_PERMISSION);
         } else {
-            Toast.makeText(this, "No app found to handle this action", Toast.LENGTH_SHORT).show();
+            // Разрешение уже предоставлено, совершаем звонок
+            startActivity(callIntent);
         }
     }
 
@@ -109,13 +132,15 @@ public class PickContactActivity extends AppCompatActivity {
     }
 
     private void sendMessage(String phoneNumber, String message) {
-        Intent smsIntent = new Intent(Intent.ACTION_SENDTO);
-        smsIntent.setData(Uri.parse("smsto:" + phoneNumber));
-        smsIntent.putExtra("sms_body", message);
-        if (smsIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(smsIntent);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSION_REQUEST_CODE);
         } else {
-            Toast.makeText(this, "No app found to handle this action", Toast.LENGTH_SHORT).show();
+            // Получаем экземпляр SmsManager
+            SmsManager smsManager = SmsManager.getDefault();
+            // Отправляем SMS
+            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+            // Оповещаем пользователя об успешной отправке
+            Toast.makeText(this, "SMS sent", Toast.LENGTH_SHORT).show();
         }
     }
 
