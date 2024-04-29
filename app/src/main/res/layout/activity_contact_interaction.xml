@@ -23,7 +23,16 @@
         android:text="@string/phone"
         android:textSize="18sp" />
 
-    <EditText
+    <Button
+        android:id="@+id/button_choose_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_phone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:text="@string/choose_contact" />
+
+    `<EditText
         android:id="@+id/editText_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

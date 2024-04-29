@@ -26,7 +26,6 @@ public class PickContactActivity extends AppCompatActivity {
     private String phoneNumber;
     EditText editTextMessage;
     private ActivityResultLauncher<Intent> pickContactLauncher;
-
     private static final int REQUEST_CALL_PHONE_PERMISSION = 1;
     private static final int SEND_SMS_PERMISSION_REQUEST_CODE = 2;
 
@@ -51,6 +50,9 @@ public class PickContactActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+        Button buttonChooseContact = findViewById(R.id.button_choose_contact);
+        buttonChooseContact.setOnClickListener(v -> openContactPicker());
 
         // Запрашивать разрешение на чтение контактов, если оно не предоставлено
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
